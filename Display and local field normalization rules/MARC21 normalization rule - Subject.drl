@@ -74,23 +74,24 @@ rule "Primo VE Display- Subject 650"
         concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
         set TEMP"3" to multilingual by "650" "Subject" "display"
 		concatenate with delimiter (TEMP"1",TEMP"3","")
-replace string by string (TEMP"1","Indians of North America","Indigenous Peoples")
-replace string by string (TEMP"1","Indians","Indigenous Peoples")
-replace string by string (TEMP"1","Indian","Indigenous")
-replace string by string (TEMP"1","Aboriginal","Indigenous")
-replace string by string (TEMP"1","Eskimos","Inuit")
-replace string by string (TEMP"1","Eskimo","Inuit")
-replace string by string (TEMP"1","East Indigenous Peoples","East Indians")
-replace string by string (TEMP"1","East Indigenous","East Indian")
-replace string by string (TEMP"1","West Indigenous Peoples","West Indians")
-replace string by string (TEMP"1","West Indigenous","West Indian")
-replace string by string (TEMP"1","Indiens d'Amérique","Peuples autochtones")
-replace string by string (TEMP"1","Indiennes d'Amérique","Femmes des Peuples autochtones")
-replace string by string (TEMP"1","indien d'Amérique","des Peuples autochtones")
-replace string by string (TEMP"1","indienne d'Amérique","des Peuples autochtones")
-replace string by string (TEMP"1","indiens d'Amérique","des Peuples autochtones")
-replace string by string (TEMP"1","indiennes d'Amérique","des Peuples autochtones")
-replace string by string (TEMP"1","Esquimaux","Inuits")
+		replace string by string (TEMP"1","Indians of North America","Indigenous Peoples")
+		replace string by string (TEMP"1","Indians","Indigenous Peoples")
+		replace string by string (TEMP"1","Indian","Indigenous")
+		replace string by string (TEMP"1","Aboriginal","Indigenous")
+		replace string by string (TEMP"1","Eskimos","Inuit")
+		replace string by string (TEMP"1","Eskimo","Inuit")
+		replace string by string (TEMP"1","East Indigenous Peoples","East Indians")
+		replace string by string (TEMP"1","East Indigenous","East Indian")
+		replace string by string (TEMP"1","West Indigenous Peoples","West Indians")
+		replace string by string (TEMP"1","West Indigenous","West Indian")
+		replace string by string (TEMP"1","Indiens d'Amérique","Peuples autochtones")
+		replace string by string (TEMP"1","Indiennes d'Amérique","Femmes des Peuples autochtones")
+		replace string by string (TEMP"1","indien d'Amérique","des Peuples autochtones")
+		replace string by string (TEMP"1","indienne d'Amérique","des Peuples autochtones")
+		replace string by string (TEMP"1","indiens d'Amérique","des Peuples autochtones")
+		replace string by string (TEMP"1","indiennes d'Amérique","des Peuples autochtones")
+		replace string by string (TEMP"1","Esquimaux","Inuits")
+		replace string by string (TEMP"1","America, Lake","Ontario, Lake")
         create pnx."display"."subject" with TEMP"1"
 end
 
@@ -104,6 +105,14 @@ rule "Prima_Display - Subject 651"
 		concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
 		set TEMP"3" to multilingual by "651" "Subject" "display"
 		concatenate with delimiter (TEMP"1",TEMP"3","")
+		set TEMP"4" to MARC."651" sub without sort "v"
+		remove substring using regex (TEMP"4","\\.+$")
+		add suffix (TEMP"4",".")	
+        concatenate with delimiter (TEMP"1",TEMP"1","$$Q")
+        concatenate with delimiter (TEMP"1",TEMP"4"," -- ")
+		remove substring using regex (TEMP"1","\\$\\$Q.+[^.]$")
+		remove substring using regex (TEMP"1","\\.$")
+		replace string by string (TEMP"1","America, Lake","Ontario, Lake")
         create operational."prima_display"."subject" with TEMP"1"
 end
 
