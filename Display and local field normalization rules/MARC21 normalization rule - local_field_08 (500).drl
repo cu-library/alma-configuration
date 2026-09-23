@@ -1,0 +1,7 @@
+rule "Primo VE - Lds08"
+	when
+		MARC."500" has any "a,b,c,d,v,x,y,z"
+                	then
+	       create pnx."display"."lds08" with MARC "500" subfields "a,b,c,d,v,x,y,z"
+
+            end

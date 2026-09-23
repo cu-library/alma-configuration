@@ -1,0 +1,6 @@
+rule "prima_display Dissertation "
+	when
+		DCMI is "dc"."XXX"
+	then	  
+		create operational."prima_display"."dissertation" with DCMI."dc"."XXX"
+end

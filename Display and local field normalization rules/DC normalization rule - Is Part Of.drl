@@ -1,0 +1,6 @@
+rule "prima_display ispartof - dcterms:isPartOf"
+	when
+		DCMI is "dcterms"."isPartOf"
+	then
+		create operational."prima_display"."ispartof" with DCMI."dcterms"."isPartOf"
+end

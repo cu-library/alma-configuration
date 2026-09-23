@@ -1,0 +1,58 @@
+rule "Primo VE - Lds06"
+	when
+		MARC."690" has any "a-u,w-z" AND NOT
+		MARC."690".ind"2"  equals "2"
+	then
+		set TEMP"1" to MARC."690" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
+		set TEMP"2" to MARC."690" sub without sorting "x-z" delimited by " -- "
+		remove substring using regex (TEMP"2","\\.+$")	
+		concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
+		set TEMP"3" to multilingual by "690" "Subject" "display"
+		concatenate with delimiter (TEMP"1",TEMP"3","")
+replace string by string (TEMP"1","Indians of North America","Indigenous Peoples")
+replace string by string (TEMP"1","Indians","Indigenous Peoples")
+replace string by string (TEMP"1","Indian","Indigenous")
+replace string by string (TEMP"1","Aboriginal","Indigenous")
+replace string by string (TEMP"1","Eskimos","Inuit")
+replace string by string (TEMP"1","Eskimo","Inuit")
+replace string by string (TEMP"1","East Indigenous Peoples","East Indians")
+replace string by string (TEMP"1","East Indigenous","East Indian")
+replace string by string (TEMP"1","West Indigenous Peoples","West Indians")
+replace string by string (TEMP"1","West Indigenous","West Indian")
+replace string by string (TEMP"1","Indiens d'Amérique","Peuples autochtones")
+replace string by string (TEMP"1","Indiennes d'Amérique","Femmes des Peuples autochtones")
+replace string by string (TEMP"1","indien d'Amérique","des Peuples autochtones")
+replace string by string (TEMP"1","indienne d'Amérique","des Peuples autochtones")
+replace string by string (TEMP"1","indiens d'Amérique","des Peuples autochtones")
+replace string by string (TEMP"1","indiennes d'Amérique","des Peuples autochtones")
+replace string by string (TEMP"1","Esquimaux","Inuits")
+		create pnx."display"."subject" with TEMP"1"
+end
+
+rule "Primo VE - Ldx06.2"
+	when
+		MARC."692" has any "a-u,w-z" AND NOT
+		MARC."692".ind"2"  equals "2"
+	then
+		set TEMP"1" to MARC."692" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
+		set TEMP"2" to MARC."692" sub without sorting "x-z" delimited by " -- "
+        remove substring using regex (TEMP"2","\\.+$")		
+		concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
+		set TEMP"3" to multilingual by "692" "Subject" "display"
+		concatenate with delimiter (TEMP"1",TEMP"3","")
+        create pnx."display"."subject" with TEMP"1"
+end
+
+rule "Primo VE - Ldx06.3"
+	when
+		MARC."694" has any "a-u,w-z" AND NOT
+		MARC."694".ind"2"  equals "2"
+	then
+		set TEMP"1" to MARC."694" subfields "a-u,w" delimited by " " remove substring using regex "\\.+$"
+		set TEMP"2" to MARC."694" sub without sorting "x-z" delimited by " -- "
+        remove substring using regex (TEMP"2","\\.+$")		
+		concatenate with delimiter (TEMP"1",TEMP"2"," -- ")
+		set TEMP"3" to multilingual by "694" "Subject" "display"
+		concatenate with delimiter (TEMP"1",TEMP"3","")
+        create pnx."display"."subject" with TEMP"1"
+end

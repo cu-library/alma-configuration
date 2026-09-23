@@ -1,0 +1,124 @@
+rule "prima_display relation - dcterms:hasPart"
+	when
+		DCMI is "dcterms"."hasPart"  and extender not in "URI"
+	then
+	    set TEMP"1" to DCMI."dcterms"."hasPart"
+	    add prefix (TEMP"1","$$Cconstituent$$V")
+		create operational."prima_display"."relation" with TEMP"1"
+
+end
+
+rule "prima_display relation - dcterms:isVersionOf"
+	when
+		DCMI is "dcterms"."isVersionOf" and extender not in "URI"
+	then
+	    set TEMP"1" to DCMI."dcterms"."isVersionOf"
+	    add prefix (TEMP"1","$$Cedition$$V")
+		create operational."prima_display"."relation" with TEMP"1"
+
+end
+
+rule "prima_display relation - dcterms:hasVersion"
+	when
+		DCMI is "dcterms"."hasVersion"  and extender not in "URI"
+	then
+	    set TEMP"1" to DCMI."dcterms"."hasVersion"
+	    add prefix (TEMP"1","$$Cedition$$V")
+		create operational."prima_display"."relation" with TEMP"1"
+
+end
+
+rule "prima_display relation - dcterms:hasFormat"
+	when
+		DCMI is "dcterms"."hasFormat"  and extender not in "URI"
+	then
+	    set TEMP"1" to DCMI."dcterms"."hasFormat"
+	    add prefix (TEMP"1","$$Cform$$V")
+		create operational."prima_display"."relation" with TEMP"1"
+
+end
+
+rule "prima_display relation - dcterms:isFormatOf"
+	when
+		DCMI is "dcterms"."isFormatOf"  and extender not in "URI"
+	then
+	    set TEMP"1" to DCMI."dcterms"."isFormatOf"
+	    add prefix (TEMP"1","$$Cform$$V")
+		create operational."prima_display"."relation" with TEMP"1"
+
+end
+
+rule "prima_display relation - dcterms:replaces"
+	when
+		DCMI is "dcterms"."replaces"  and extender not in "URI"
+	then
+	    set TEMP"1" to DCMI."dcterms"."replaces"
+	    add prefix (TEMP"1","$$Cearlier_title$$V")
+		create operational."prima_display"."relation" with TEMP"1"
+
+end
+
+rule "prima_display relation - dcterms:isReplacedBy"
+	when
+		DCMI is "dcterms"."isReplacedBy"  and extender not in "URI"
+	then
+	    set TEMP"1" to DCMI."dcterms"."isReplacedBy"
+	    add prefix (TEMP"1","$$Clater_title$$V")
+		create operational."prima_display"."relation" with TEMP"1"
+
+end
+
+rule "prima_display relation - dc:relation"
+	when
+		DCMI is "dc"."relation"
+	then
+	    set TEMP"1" to DCMI."dc"."relation"
+	    remove substring using regex (TEMP"1","^https?://.*$")
+	    add prefix (TEMP"1","$$Cother_relationship$$V")
+	    remove substring using regex (TEMP"1","^\\$\\$Cother_relationship\\$\\$V$")
+		create operational."prima_display"."relation" with TEMP"1"
+
+end
+
+rule "prima_display relation - dcterms:relation"
+	when
+		DCMI is "dcterms"."relation"
+	then
+	    set TEMP"1" to DCMI."dcterms"."relation"
+	    remove substring using regex (TEMP"1","^https?://.*$")
+	    add prefix (TEMP"1","$$Cother_relationship$$V")
+		remove substring using regex (TEMP"1","^\\$\\$Cother_relationship\\$\\$V$")
+		create operational."prima_display"."relation" with TEMP"1"
+
+end
+
+
+rule "prima_display relation - dcterms:conformsTo"
+	when
+		DCMI is "dcterms"."conformsTo"  and extender not in "URI"
+	then
+	    set TEMP"1" to DCMI."dcterms"."conformsTo"
+	    add prefix (TEMP"1","$$Cother_relationship$$V")
+		create operational."prima_display"."relation" with TEMP"1"
+
+end
+
+rule "prima_display relation - dcterms:isRequiredBy"
+	when
+		DCMI is "dcterms"."isRequiredBy"  and extender not in "URI"
+	then
+	    set TEMP"1" to DCMI."dcterms"."isRequiredBy"
+	    add prefix (TEMP"1","$$Cother_relationship$$V")
+		create operational."prima_display"."relation" with TEMP"1"
+
+end
+
+rule "prima_display relation - dcterms:requires"
+	when
+		DCMI is "dcterms"."requires"  and extender not in "URI"
+	then
+	    set TEMP"1" to DCMI."dcterms"."requires"
+	    add prefix (TEMP"1","$$Cother_relationship$$V")
+		create operational."prima_display"."relation" with TEMP"1"
+
+end

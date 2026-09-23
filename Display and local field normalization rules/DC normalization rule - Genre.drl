@@ -1,0 +1,6 @@
+rule "prima_display Genre "
+	when
+		DCMI is "dc"."XXX"
+	then	  
+		create operational."prima_display"."genre" with DCMI."dc"."XXX"
+end

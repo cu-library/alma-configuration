@@ -1,0 +1,10 @@
+rule "Primo VE - Lds15"
+   when
+         MARC."788" has any "i,a,t"
+   then
+         set TEMP"1" to MARC."788" subfields "i,a,t,w"
+         set TEMP"2" to MARC."788" subfields "w"
+         add prefix (TEMP"2","$$Q")
+         concatenate with delimiter (TEMP"1",TEMP"2","")
+         create pnx."display"."lds15" with TEMP"1"
+end
