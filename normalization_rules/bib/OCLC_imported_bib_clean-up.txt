@@ -1,0 +1,43 @@
+rule "general clean-up"
+salience 100
+when
+  (true)
+then
+  removeField "003"
+  removeField "019"
+  removeField "029"
+  removeField "856" if (not exists "856.3.*")
+  removeField "600" if (exists "600.{*,7}.2.aat|cct|eclas|fmesh|gnd|gnd-content|gtt|larpcal|nasat|nli|rero|sigle|swd|tekord|bcl|idszbz|bisach|unbist|toit|ilot|tbit")
+  removeField "610" if (exists "610.{*,7}.2.aat|cct|eclas|fmesh|gnd|gnd-content|gtt|larpcal|nasat|nli|rero|sigle|swd|tekord|bcl|idszbz|bisach|unbist|toit|ilot|tbit")
+  removeField "611" if (exists "611.{*,7}.2.aat|cct|eclas|fmesh|gnd|gnd-content|gtt|larpcal|nasat|nli|rero|sigle|swd|tekord|bcl|idszbz|bisach|unbist|toit|ilot|tbit")
+  removeField "630" if (exists "630.{*,7}.2.aat|cct|eclas|fmesh|gnd|gnd-content|gtt|larpcal|nasat|nli|rero|sigle|swd|tekord|bcl|idszbz|bisach|unbist|toit|ilot|tbit")
+  removeField "647" if (exists "647.{*,7}.2.aat|cct|eclas|fmesh|gnd|gnd-content|gtt|larpcal|nasat|nli|rero|sigle|swd|tekord|bcl|idszbz|bisach|unbist|toit|ilot|tbit")
+  removeField "648" if (exists "648.{*,7}.2.aat|cct|eclas|fmesh|gnd|gnd-content|gtt|larpcal|nasat|nli|rero|sigle|swd|tekord|bcl|idszbz|bisach|unbist|toit|ilot|tbit")
+  removeField "650" if (exists "650.{*,7}.2.aat|cct|eclas|fmesh|gnd|gnd-content|gtt|larpcal|nasat|nli|rero|sigle|swd|tekord|bcl|idszbz|bisach|unbist|toit|ilot|tbit")
+  removeField "651" if (exists "651.{*,7}.2.aat|cct|eclas|fmesh|gnd|gnd-content|gtt|larpcal|nasat|nli|rero|sigle|swd|tekord|bcl|idszbz|bisach|unbist|toit|ilot|tbit")
+  removeField "653"
+  removeField "654" if (exists "654.{*,7}.2.aat|cct|eclas|fmesh|gnd|gnd-content|gtt|larpcal|nasat|nli|rero|sigle|swd|tekord|bcl|idszbz|bisach|unbist|toit|ilot|tbit")
+  removeField "655" if (exists "655.{*,7}.2.aat|cct|eclas|fmesh|gnd|gnd-content|gtt|larpcal|nasat|nli|rero|sigle|swd|tekord|bcl|idszbz|bisach|unbist|toit|ilot|tbit")
+  removeField "656" if (exists "656.{*,7}.2.aat|cct|eclas|fmesh|gnd|gnd-content|gtt|larpcal|nasat|nli|rero|sigle|swd|tekord|bcl|idszbz|bisach|unbist|toit|ilot|tbit")
+  removeField "657" if (exists "657.{*,7}.2.aat|cct|eclas|fmesh|gnd|gnd-content|gtt|larpcal|nasat|nli|rero|sigle|swd|tekord|bcl|idszbz|bisach|unbist|toit|ilot|tbit")
+  removeField "658" if (exists "658.{*,7}.2.aat|cct|eclas|fmesh|gnd|gnd-content|gtt|larpcal|nasat|nli|rero|sigle|swd|tekord|bcl|idszbz|bisach|unbist|toit|ilot|tbit")
+  removeField "662" if (exists "662.{*,7}.2.aat|cct|eclas|fmesh|gnd|gnd-content|gtt|larpcal|nasat|nli|rero|sigle|swd|tekord|bcl|idszbz|bisach|unbist|toit|ilot|tbit")
+  removeField "938"
+  removeField "948"
+end
+
+rule "clean up 856, part 1"
+salience 90
+when
+  exists "505"
+then
+  removeField "856" if (exists "856.3.*contents*|*Contents*")
+end
+
+rule "clean up 856, part 2"
+salience 80
+when
+  exists "520"
+then
+  removeField "856" if (exists "856.3.*description*|*Description*|*summary*|*Summary*")
+end

@@ -1,0 +1,93 @@
+rule "create temporary 988 field"
+salience 100
+when
+  (true)
+then
+  addField "988.{0,8}.6.035-01"
+  addSubField "988.i.Équivalent anglais / English equivalent:"
+end
+
+rule "add main entry from 100, if exists, into a temporary $x subfield"
+salience 90
+when
+  exists "100"
+then
+  copyField "100.a" to "988.x"
+  suffixSubfield "988.x" with "100.c"
+  suffixSubfield "988.x" with "100.q"
+  suffixSubfield "988.x" with "100.d"
+end
+
+rule "otherwise add main entry from 110, if exists, into a temporary $x subfield"
+salience 90
+when
+  exists "110"
+then
+  copyField "110.a" to "988.x"
+  suffixSubfield "988.x" with "110.b"
+  suffixSubfield "988.x" with "110.n"
+  suffixSubfield "988.x" with "110.d"
+  suffixSubfield "988.x" with "110.c"
+end
+
+rule "otherwise add main entry from 111, if exists, into a temporary $x subfield"
+salience 90
+when
+  exists "111"
+then
+  copyField "111.a" to "988.x"
+  suffixSubfield "988.x" with "111.q"
+  suffixSubfield "988.x" with "111.n"
+  suffixSubfield "988.x" with "111.d"
+  suffixSubfield "988.x" with "111.c"
+  suffixSubfield "988.x" with "111.e"
+
+end
+
+rule "add title from 245 and language code"
+salience 80
+when
+  (true)
+then
+  copyField "245.a" to "988.t"
+  suffixSubfield "988.t" with "245.b"
+  replaceContents "988.t. /" with ""
+  addField "988.e.eng"
+end
+
+rule "add oclc nums from 035/095 in record if it is an English description"
+salience 70
+when
+  (exists "095.a.(OCoLC)*" or exists "035.a.(OCoLC)*") and exists "040.b.eng"
+then
+  copyField "095" to "988" if (exists "095.a.(OCoLC)*")
+  copyField "035" to "988" if (exists "035.a.(OCoLC)*")
+  changeSubField "988.a" to "w"
+  changeSubField "988.z" to "w"
+end
+
+rule "otherwise add blank $w"
+salience 70
+when
+  not exists "040.b.eng"
+then
+  addField "988.w.(OCoLC)"
+end
+
+rule "add $6 linkage in 035 if it is a French description"
+salience 60
+when
+  exists "040.b.fre"
+then
+  addSubField "035.6.788-01" if (exists "035.a.(OCoLC)*")
+end
+
+rule "finally, convert temporary 988 field to 788"
+salience 50
+when
+  (true)
+then
+  changeSubField "988.x" to "a"
+  combineFields "988" excluding ""
+  changeField "988" to "788"
+end

@@ -1,0 +1,22 @@
+rule "690 cleanup combined"
+when
+  (true)
+then
+  removeField "035" if (exists "035.9.ExL")
+  removeField "035" if (exists "035.a.(CaOOCC)*")
+  removeField "095"
+  changeFirstIndicator "090" to " " if (exists "090.{1,*}")
+  removeField "530"
+  addSubField "902.9.local"
+  addSubField "907.9.local"
+  addSubField "945.9.local"
+  addSubField "998.9.local"
+end
+
+rule "delete 690 only if there is a 960 with appropriate text"
+when
+     (exists "690.*") AND (exists "960.a.Carleton University 690 Project")
+then
+     removeField "690"
+     removeField "960"
+end
